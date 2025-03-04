@@ -50,6 +50,6 @@ public class DegreeProgram {
     @Column(name = "status", length = 15)
     private String status;
 
-    @OneToMany(mappedBy = "degreeProgram", cascade = CascadeType.ALL)
-    private List<DegreeProgramCourse> courses; // Relationship with Courses
+
+
 }
