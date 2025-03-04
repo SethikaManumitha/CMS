@@ -3,6 +3,8 @@ package com.example.CMS.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 /**
  * Entity class representing a degree Program in the CMS system.
  * Uses Lombok annotations for boilerplate code reduction.
@@ -17,7 +19,7 @@ public class DegreeProgram {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ProgramID")
-    private int id;
+    private int ProgramID;
 
     // Foreign key reference to Department
     @ManyToOne
@@ -47,4 +49,7 @@ public class DegreeProgram {
 
     @Column(name = "status", length = 15)
     private String status;
+
+    @OneToMany(mappedBy = "degreeProgram", cascade = CascadeType.ALL)
+    private List<DegreeProgramCourse> courses; // Relationship with Courses
 }
