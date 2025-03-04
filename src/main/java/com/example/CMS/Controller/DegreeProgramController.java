@@ -5,6 +5,7 @@ import com.example.CMS.Service.DegreeProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Manages HTTP requests related to degree Program entity operations.
  */
 @RestController
+@RequestMapping("/degreeProgramme") // Added request mapping
 public class DegreeProgramController {
     @Autowired
     private DegreeProgramService degreeProgramService;
