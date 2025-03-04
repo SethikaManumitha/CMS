@@ -16,12 +16,12 @@ public class Admin {
     private int adminId;
 
     // One admin can be one user
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
     // One admin can have one department
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dept_id", nullable = false)
     private Department department;
 }
