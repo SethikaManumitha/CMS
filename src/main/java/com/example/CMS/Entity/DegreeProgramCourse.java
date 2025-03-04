@@ -20,13 +20,14 @@ public class DegreeProgramCourse {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "program_id", nullable = false) // Foreign key to DegreeProgram
-    private DegreeProgram degreeProgram;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false) // Foreign key to Course
-    private Course course;
+
+    @Column(name = "ProgramID",  nullable = false)
+    private int ProgramID;
+
+
+    @Column(name = "CourseID")
+    private int CourseID;
 
     @Column(name = "semester")
     private int semester;
