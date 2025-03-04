@@ -29,7 +29,5 @@ public class Course {
     @Column(name = "status", length = 20)
     private String status;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    private List<DegreeProgramCourse> degreePrograms; // Relationship with Degree Programs
 
 }
