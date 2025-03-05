@@ -5,6 +5,7 @@ import com.example.CMS.Repository.AdminRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,9 @@ public class AdminService {
 
     public Optional<Admin> getAdminById(int id) {
         return adminRepository.findById(id);
+    }
+    public List<Admin> getAllAdmins() {
+        return adminRepository.findAll();
     }
 
     public void deleteAdmin(int id){

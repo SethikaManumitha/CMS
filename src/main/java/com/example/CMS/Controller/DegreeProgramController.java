@@ -23,7 +23,7 @@ public class DegreeProgramController {
      * @return Saved degree Program entity
      */
 
-    @PostMapping //Changed post mapping to constant format
+    @PostMapping
     public DegreeProgram postDetails(@RequestBody DegreeProgram degreeProgram)
     {
         return degreeProgramService.saveDetails(degreeProgram);

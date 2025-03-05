@@ -24,6 +24,11 @@ public class Course {
     @Column(name = "Course_name", length = 200,unique = true)
     private String Course_name;
 
+    @ManyToOne
+    @JoinColumn(name = "lecturerID", nullable = false)
+    @JsonIgnoreProperties("courses")
+    private Lecturer lecturer;
+
     @Column(name = "credits")
     private int credits;
 
