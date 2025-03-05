@@ -58,6 +58,7 @@ public class AdminController {
     }
 
     // Update an admin by ID
+    /*
     @PutMapping("/{id}")
     public Admin updateAdmin(@PathVariable int id, @RequestBody Admin adminRequest) {
         // Fetch the admin entity by ID
@@ -71,5 +72,5 @@ public class AdminController {
         existingAdmin.setDepartment(department);
 
         return adminService.saveAdmin(existingAdmin);
-    }
+    } */
 }
