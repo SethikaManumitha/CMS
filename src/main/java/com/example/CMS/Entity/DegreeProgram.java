@@ -1,5 +1,6 @@
 package com.example.CMS.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class DegreeProgram {
     // Foreign key reference to Department
     @ManyToOne
     @JoinColumn(name = "dept_id", nullable = false)
+    @JsonIgnoreProperties("degreePrograms")
     private Department department;
 
     @Column(name = "program_name", length = 200,unique = true)
@@ -50,6 +52,13 @@ public class DegreeProgram {
     @Column(name = "status", length = 15)
     private String status;
 
-
+    @ManyToMany
+    @JoinTable(
+            name = "degree_program_course",
+            joinColumns = @JoinColumn(name = "ProgramID"),
+            inverseJoinColumns = @JoinColumn(name = "CourseID")
+    )
+    @JsonIgnoreProperties("degreePrograms") // Json ignore to avoid recurssion
+    private List<Course> courses;
 
 }

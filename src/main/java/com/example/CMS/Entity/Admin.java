@@ -10,18 +10,17 @@ import lombok.*;
 @Getter
 @Setter
 public class Admin {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "admin_id")
     private int adminId;
 
-    // One admin can be one user
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
-    // One admin can have one department
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "dept_id", nullable = false)
     private Department department;
 }

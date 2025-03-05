@@ -5,6 +5,7 @@ import com.example.CMS.Service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Manages HTTP requests related to course entity operations.
  */
 @RestController
+@RequestMapping("courses") //Added request mapping
 public class CourseController {
     @Autowired
     private CourseService courseService;
@@ -22,7 +24,7 @@ public class CourseController {
      * @return Saved degree Program entity
      */
 
-    @PostMapping("/addCourse")
+    @PostMapping // Made constant format
     public Course postDetails(@RequestBody Course course)
     {
 

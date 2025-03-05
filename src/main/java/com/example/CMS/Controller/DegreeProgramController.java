@@ -3,17 +3,16 @@ package com.example.CMS.Controller;
 import com.example.CMS.Entity.DegreeProgram;
 import com.example.CMS.Service.DegreeProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Controller class for handling degree Program-related API endpoints.
  * Manages HTTP requests related to degree Program entity operations.
  */
 @RestController
-@RequestMapping("/degreeProgramme") // Added request mapping
+@RequestMapping("/degreeProgrammes") // Added request mapping
 public class DegreeProgramController {
     @Autowired
     private DegreeProgramService degreeProgramService;
@@ -24,10 +23,22 @@ public class DegreeProgramController {
      * @return Saved degree Program entity
      */
 
-    @PostMapping("/addDegreeProgram")
+    @PostMapping //Changed post mapping to constant format
     public DegreeProgram postDetails(@RequestBody DegreeProgram degreeProgram)
     {
-
         return degreeProgramService.saveDetails(degreeProgram);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteDepartment(@PathVariable int id) {
+        degreeProgramService.deleteDegreeProgram(id);
+    }
+
+    // PUT Endpoint to Assign Courses to a Degree Program
+    @PutMapping("/{programId}/courses")
+    public DegreeProgram assignCoursesToDegreeProgram(
+            @PathVariable int programId,
+            @RequestBody List<Integer> courseIds) {
+        return degreeProgramService.assignCourses(programId, courseIds);
     }
 }

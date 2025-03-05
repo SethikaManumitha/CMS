@@ -1,5 +1,6 @@
 package com.example.CMS.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
@@ -29,5 +30,8 @@ public class Course {
     @Column(name = "status", length = 20)
     private String status;
 
+    @ManyToMany(mappedBy = "courses")
+    @JsonIgnoreProperties("courses")
+    private List<DegreeProgram> degreePrograms;
 
 }

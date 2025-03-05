@@ -6,65 +6,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
-/**
- * Controller class for handling user-related API endpoints.
- * Manages HTTP requests related to User entity operations.
- */
 @RestController
-@RequestMapping("/user") // Added request mapping
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    /**
-     * Handles HTTP POST requests to add a new user.
-     * @param user User entity received in the request body
-     * @return Saved User entity
-     */
-    @PostMapping("/addUser")
-    public User addUser(@RequestBody User user)
-    {
-        return userService.saveDetails(user);
+    // Create a user
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userService.saveUser(user);
     }
 
-    /**
-     * Handles HTTP PUT requests to update an existing user.
-     * @param id User ID
-     * @param user User entity with updated details
-     * @return Updated User entity
-     */
-    @PutMapping("/updateUser/{id}")
-    public User updateUser(@PathVariable int id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    // Get all users
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
-    /**
-     * Handles HTTP DELETE requests to delete an existing user.
-     * @param id User ID
-     */
-    @DeleteMapping("/deleteUser/{id}")
-    public void deleteUser(@PathVariable int id) {
-        userService.deleteUser(id);
-    }
-
-    /**
-     * Handles HTTP GET requests to fetch a user by ID.
-     * @param id User ID
-     * @return User entity
-     */
-    @GetMapping("/getUser/{id}")
-    public User getUserById(@PathVariable int id) {
+    // Get a user by ID
+    @GetMapping("/{id}")
+    public Optional<User> getUserById(@PathVariable int id) {
         return userService.getUserById(id);
     }
 
-    /**
-     * Handles HTTP GET requests to fetch all users.
-     * @return List of all User entities
-     */
-    @GetMapping("/getAllUsers")
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    // Delete a user by ID
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
     }
 }

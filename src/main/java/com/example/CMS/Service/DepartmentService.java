@@ -5,21 +5,28 @@ import com.example.CMS.Repository.DepartmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Service class for handling business logic related to Department entity.
- * Provides methods to interact with the Department repository.
- */
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class DepartmentService {
-    @Autowired
-    private DepartmentRepo departmentRepo; // Injecting DepartmentRepo dependency
 
-    /**
-     * Saves department details to the database.
-     * @param department department entity to be saved
-     * @return Saved department entity
-     */
-    public Department saveDetails(Department department){
-        return departmentRepo.save(department);
+    @Autowired
+    private DepartmentRepo departmentRepository;
+
+    public Department saveDepartment(Department department) {
+        return departmentRepository.save(department);
+    }
+
+    public List<Department> getAllDepartments() {
+        return departmentRepository.findAll();
+    }
+
+    public Optional<Department> getDepartmentById(int id) {
+        return departmentRepository.findById(id);
+    }
+
+    public void deleteDepartment(int id){
+        departmentRepository.deleteById(id);
     }
 }
