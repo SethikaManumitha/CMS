@@ -39,4 +39,6 @@ public class Course {
     @JsonIgnoreProperties("courses")
     private List<DegreeProgram> degreePrograms;
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<StudentCourse> studentCourse;
 }
