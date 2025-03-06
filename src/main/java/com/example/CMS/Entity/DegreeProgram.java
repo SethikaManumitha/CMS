@@ -61,4 +61,7 @@ public class DegreeProgram {
     @JsonIgnoreProperties("degreePrograms") // Json ignore to avoid recurssion
     private List<Course> courses;
 
+    @OneToMany(mappedBy = "degreeProgram", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<StudentDegree> studentDegrees;
+
 }
