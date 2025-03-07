@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StudentCourseService {
+public class  StudentCourseService {
     @Autowired
     private StudentCourseRepo studentCourseRepository;
 
