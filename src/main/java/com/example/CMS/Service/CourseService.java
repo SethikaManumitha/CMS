@@ -6,6 +6,7 @@ import com.example.CMS.Repository.CourseRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -31,4 +32,9 @@ public class CourseService {
 
     public void deleteCourse(int id){
         courseRepo.deleteById(id);}
+
+    public List<Course> getAllCourses() {
+        return courseRepo.findAll();
+    }
+
 }

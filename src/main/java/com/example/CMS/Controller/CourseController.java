@@ -5,10 +5,9 @@ import com.example.CMS.Entity.Lecturer;
 import com.example.CMS.Service.CourseService;
 import com.example.CMS.Service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Controller class for handling course-related API endpoints.
@@ -32,7 +31,7 @@ public class CourseController {
     @PostMapping
     public Course addCourse(@RequestBody Course courseRequest) {
         // Ensure that the required fields are not null
-        if (courseRequest.getCourse_name() == null || courseRequest.getCourse_name().isEmpty()) {
+        if (courseRequest.getCourseName() == null || courseRequest.getCourseName().isEmpty()) {
             throw new IllegalArgumentException("Course name cannot be null or empty");
         }
 
@@ -40,20 +39,15 @@ public class CourseController {
             throw new IllegalArgumentException("Credits must be greater than 0");
         }
 
-        // Log the incoming lecturer ID for debugging
-        int lecturerID = courseRequest.getLecturer().getLecturerID();
-        System.out.println("Looking up Lecturer with ID: " + lecturerID);
-
-        // Fetch the lecturer from the database
-        Lecturer lecturer = lecturerService.getLecturerById(lecturerID)
-                .orElseThrow(() -> new RuntimeException("Lecturer not found with ID: " + lecturerID));
+        Lecturer lecturer =  lecturerService.getLecturerById(courseRequest.getLecturer().getLecturerID())
+                .orElseThrow(() -> new RuntimeException("Lecturer not found"));
 
         // Set the fetched lecturer to the course
         Course course = new Course();
         course.setLecturer(lecturer);
 
         // Set course properties
-        course.setCourse_name(courseRequest.getCourse_name());
+        course.setCourseName(courseRequest.getCourseName());
         course.setCredits(courseRequest.getCredits());
         if (courseRequest.getStatus() != null) {
             course.setStatus(courseRequest.getStatus());
@@ -64,6 +58,11 @@ public class CourseController {
         }
 
         return courseService.saveDetails(course);
+    }
+
+    @GetMapping
+    public List<Course> getAllCourses(){
+        return  courseService.getAllCourses();
     }
 
 }

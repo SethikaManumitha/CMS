@@ -19,10 +19,10 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CourseID")
-    private int CourseID;
+    private int courseID;
 
     @Column(name = "Course_name", length = 200,unique = true)
-    private String Course_name;
+    private String courseName;
 
     @ManyToOne
     @JoinColumn(name = "lecturerID", nullable = false)
