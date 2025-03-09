@@ -1,17 +1,17 @@
 package com.example.CMS.Service;
 
-import com.example.CMS.DTO.eventRequest;
+import com.example.CMS.DTO.EventRequest;
 import com.example.CMS.Entity.Event;
-import com.example.CMS.Repository.eventRepo;
+import com.example.CMS.Repository.EventRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class eventService {
+public class EventService {
     @Autowired
-    private eventRepo eventRepository;
+    private EventRepo eventRepository;
 
-    public Event addEvent(eventRequest request){
+    public Event addEvent(EventRequest request){
         Event event=new Event();
         event.setName(request.getName());
         event.setDescription(request.getDescription());

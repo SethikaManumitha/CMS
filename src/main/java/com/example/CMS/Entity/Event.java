@@ -39,10 +39,10 @@ public class Event {
     private String organizer;
 
     @Column(name = "MaxCapacity")
-    private int MaxCapacity;
+    private int maxCapacity; // Changed to camel case
 
     @Column(name = "RegisterDeadline", length = 100)
-    private String RegisterDeadline;
+    private String registerDeadline; // Changed to camel case
 
     @Column(name = "status", length = 100)
     private String status;

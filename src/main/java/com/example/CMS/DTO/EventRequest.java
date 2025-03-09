@@ -1,12 +1,11 @@
 package com.example.CMS.DTO;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class eventRequest {
+public class EventRequest {
     private String name;
     private String description;
     private String date;

@@ -1,9 +1,5 @@
 package com.example.CMS.DTO;
 
-import com.example.CMS.Entity.Admin;
-import com.example.CMS.Entity.Course;
-import com.example.CMS.Entity.Lecturer;
-
 import lombok.Getter;
 import lombok.Setter;
 
