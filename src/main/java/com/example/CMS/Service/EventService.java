@@ -1,10 +1,13 @@
 package com.example.CMS.Service;
 
 import com.example.CMS.DTO.EventRequest;
+import com.example.CMS.Entity.Class;
 import com.example.CMS.Entity.Event;
 import com.example.CMS.Repository.EventRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class EventService {
@@ -24,5 +27,9 @@ public class EventService {
         event.setRegisterDeadline(request.getRegisterDeadline());
         event.setStatus(request.getStatus());
         return eventRepository.save(event);
+    }
+
+    public Optional<Event> getEventById(int id) {
+        return eventRepository.findById(id);
     }
 }

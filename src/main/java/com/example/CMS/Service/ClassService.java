@@ -6,6 +6,8 @@ import com.example.CMS.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ClassService {
     @Autowired
@@ -28,5 +30,9 @@ public class ClassService {
 
         timeTableRepo.save(timetable);
         return savedClass;
+    }
+
+    public Optional<Class> getClassById(int id) {
+        return classRepository.findById(id);
     }
 }

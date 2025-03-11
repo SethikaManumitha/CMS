@@ -8,6 +8,8 @@ import com.example.CMS.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ResourceService {
     @Autowired
@@ -22,5 +24,9 @@ public class ResourceService {
     // Changed resource
     public Resource addResource(Resource resource){
         return resourceRepository.save(resource);
+    }
+
+    public Optional<Resource> getResourceById(int id) {
+        return resourceRepository.findById(id);
     }
 }
