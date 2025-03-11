@@ -1,5 +1,6 @@
 package com.example.CMS.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,6 +36,11 @@ public class Lecturer {
     @Column(name = "highestQualification", length = 100)
     private String highestQualification;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "lecturer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Course> courses;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "lecturer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Class> classes;
 }

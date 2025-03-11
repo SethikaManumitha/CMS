@@ -1,10 +1,8 @@
 package com.example.CMS.Service;
 
 import com.example.CMS.Entity.Class;
-import com.example.CMS.Repository.AdminRepo;
-import com.example.CMS.Repository.ClassRepo;
-import com.example.CMS.Repository.CourseRepo;
-import com.example.CMS.Repository.LecturerRepo;
+import com.example.CMS.Entity.Timetable;
+import com.example.CMS.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +12,21 @@ public class ClassService {
     private ClassRepo classRepository;
 
     @Autowired
-    private CourseRepo courseRepository;
-
-    @Autowired
-    private LecturerRepo lecturerRepository;
-
-    @Autowired
-    private AdminRepo adminRepository;
+    private TimeTableRepo timeTableRepo;
 
     public Class CreateClass(Class newClass) {
-        return classRepository.save(newClass);
+        Class savedClass = classRepository.save(newClass);
+
+        Timetable timetable = new Timetable();
+        timetable.setClassEntity(savedClass);
+        timetable.setDayOfWeek(newClass.getDay());
+        timetable.setStartTime(newClass.getStartTime());
+        timetable.setEndTime(newClass.getEndTime());
+        timetable.setSemester(newClass.getSemester());
+        timetable.setYear(newClass.getYear());
+        timetable.setStatus("Active");
+
+        timeTableRepo.save(timetable);
+        return savedClass;
     }
 }

@@ -55,6 +55,8 @@ public class ClassController {
         Aclass.setEndTime(request.getEndTime());
         Aclass.setMaxStudents(request.getMaxStudents());
         Aclass.setStatus(request.getStatus());
+        Aclass.setSemester(request.getSemester());
+        Aclass.setYear(request.getYear());
 
 
         return classService.CreateClass(Aclass);
