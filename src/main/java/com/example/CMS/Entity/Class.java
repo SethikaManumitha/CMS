@@ -3,6 +3,8 @@ package com.example.CMS.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "class")
 @NoArgsConstructor
@@ -48,6 +50,7 @@ public class Class {
     @Column(name = "status", length = 100)
     private String status;
 
-
+    @OneToMany(mappedBy = "clazz", cascade = CascadeType.ALL)
+    private List<ClassAttendance> attendanceList;
 
 }
