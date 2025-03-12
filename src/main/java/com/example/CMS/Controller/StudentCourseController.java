@@ -18,6 +18,11 @@ public class StudentCourseController {
 
     @PostMapping("/enroll")
     public ResponseEntity<StudentCourse> enrollStudent(@RequestBody StudentCourseRequest request) {
+        System.out.println("Received request to enroll student in course:");
+        System.out.println("Course ID: " + request.getCourseId());
+        System.out.println("Student ID: " + request.getStudentId());
+        System.out.println("Marks: " + request.getMarks());
+        System.out.println("Status: " + request.getStatus());
         StudentCourse studentCourse = studentCourseService.enrollStudentInCourse(request);
         return ResponseEntity.ok(studentCourse);
     }

@@ -1,5 +1,7 @@
 package com.example.CMS.Service;
 
+import com.example.CMS.DTO.CourseDTO;
+import com.example.CMS.DTO.DegreeProgramDTO;
 import com.example.CMS.Entity.Course;
 import com.example.CMS.Entity.DegreeProgram;
 import com.example.CMS.Repository.CourseRepo;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service class for handling business logic related to Degree program entity.
@@ -41,5 +44,27 @@ public class DegreeProgramService {
         degreeProgram.setCourses(courses);
 
         return degreeProgramRepo.save(degreeProgram);
+    }
+    public List<DegreeProgramDTO> getAllDegreeProgramsWithCourses() {
+        List<DegreeProgram> programs = degreeProgramRepo.findAll();
+
+        return programs.stream().map(program -> new DegreeProgramDTO(
+                program.getProgramID(),
+                program.getProgram_name(),
+                program.getDescription(),
+                program.getLevel(),
+                program.getDegree_type(),
+                program.getDuration(),
+                program.getEntry_requirement(),
+                program.getMax_students(),
+                program.getStatus(),
+                program.getCourses().stream().map(course -> new CourseDTO(
+                        course.getCourseID(),
+                        course.getCourseName(),
+                        course.getCredits(),
+                        course.getStatus()
+                )).collect(Collectors.toList())
+        )).collect(Collectors.toList());
+
     }
 }

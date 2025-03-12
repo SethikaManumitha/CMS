@@ -11,5 +11,16 @@ public class StudentDegreeRequest {
     private int enrollmentYear;
     private String status;
     private String grade;
+    @Override
+    public String toString() {
+        return "StudentDegreeRequest{" +
+                "programID=" + programID +
+                ", studentId=" + studentId +
+                ", enrollmentYear=" + enrollmentYear +
+                ", status='" + status + '\'' +
+                ", grade='" + grade + '\'' +
+                '}';
+    }
+
 
 }

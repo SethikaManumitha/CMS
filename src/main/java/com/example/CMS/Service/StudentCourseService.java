@@ -31,6 +31,8 @@ public class  StudentCourseService {
         StudentCourse studentCourse = new StudentCourse();
         studentCourse.setStudents(student);
         studentCourse.setCourse(course);
+        studentCourse.setStatus(request.getStatus());
+        studentCourse.setMarks(request.getMarks());
 
         return studentCourseRepository.save(studentCourse);
 }

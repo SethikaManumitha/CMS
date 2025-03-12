@@ -15,6 +15,7 @@ public class StudentDegreeController {
 
     @PostMapping("/enroll")
     public ResponseEntity<StudentDegree> enrollStudent(@RequestBody StudentDegreeRequest request) {
+        System.out.println("Received enrollment request: " + request);
         StudentDegree studentDegree = studentDegreeService.enrollStudentInDegree(request);
         return ResponseEntity.ok(studentDegree);
     }
