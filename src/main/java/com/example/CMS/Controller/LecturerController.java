@@ -1,5 +1,6 @@
 package com.example.CMS.Controller;
 
+import com.example.CMS.Entity.Admin;
 import com.example.CMS.Entity.Lecturer;
 import com.example.CMS.Entity.Department;
 import com.example.CMS.Entity.User;
@@ -9,6 +10,8 @@ import com.example.CMS.Service.LecturerService;
 import com.example.CMS.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/lecturers")
@@ -54,6 +57,11 @@ public class LecturerController {
         return lecturerService.getLecturerById(id).orElse(null);
     }
 
+    //get all lecturers
+    @GetMapping
+    public List<Lecturer> getAllLecturers() {
+        return lecturerService.getAllLecturers();
+    }
     // Delete a Lecturer by ID
     @DeleteMapping("/{id}")
     public void deleteLecturer(@PathVariable int id) {

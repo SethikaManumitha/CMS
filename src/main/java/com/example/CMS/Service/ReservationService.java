@@ -40,7 +40,7 @@ public class ReservationService {
             reservation.setReservationDate(date);
             reservation.setReservationName(reservationName);
             reservation.setCapacity(capacity);
-            reservation.setStatus("Reserved");
+            reservation.setStatus("Pending");
 
             // Save the reservation object to the database
             return reservationClassRepo.save(reservation);
