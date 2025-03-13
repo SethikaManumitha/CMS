@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 public class ClassService {
-    @Autowired
+    @Autowired  
     private ClassRepo classRepository;
 
     @Autowired
@@ -18,7 +18,7 @@ public class ClassService {
 
     public Class CreateClass(Class newClass) {
         Class savedClass = classRepository.save(newClass);
-
+    
         Timetable timetable = new Timetable();
         timetable.setClassEntity(savedClass);
         timetable.setDayOfWeek(newClass.getDay());

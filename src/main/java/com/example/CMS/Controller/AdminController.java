@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/admins")
@@ -57,20 +58,42 @@ public class AdminController {
         adminService.deleteAdmin(id);
     }
 
-    // Update an admin by ID
-    /*
     @PutMapping("/{id}")
-    public Admin updateAdmin(@PathVariable int id, @RequestBody Admin adminRequest) {
-        // Fetch the admin entity by ID
-        Admin existingAdmin = adminService.getAdminById(id).orElseThrow(() -> new RuntimeException("Admin not found"));
+    public Admin updateAdmin(@PathVariable int id, @RequestBody Map<String, Object> requestBody) {
+        // Get the existing admin
+        Admin existingAdmin = adminService.getAdminById(id)
+                .orElseThrow(() -> new RuntimeException("Admin not found"));
 
-        // Fetch the user and department entities using their IDs
-        User user = userService.getUserById(adminRequest.getUser().getId()).orElseThrow(() -> new RuntimeException("User not found"));
-        Department department = departmentService.getDepartmentById(adminRequest.getDepartment().getDeptId()).orElseThrow(() -> new RuntimeException("Department not found"));
+        // Get the user associated with the admin
+        User user = userService.getUserById(existingAdmin.getUser().getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Extract user details from request
+        Map<String, Object> userMap = (Map<String, Object>) requestBody.get("user");
+
+        user.setNic((String) userMap.get("nic"));
+        user.setFirstName((String) userMap.get("firstName"));
+        user.setLastName((String) userMap.get("lastName"));
+        user.setEmail((String) userMap.get("email"));
+        user.setPassword((String) userMap.get("password"));
+        user.setPhoneNumber((String) userMap.get("phoneNumber"));
+        user.setAddress((String) userMap.get("address"));
+        user.setDob((String) userMap.get("dob"));
+        user.setGender((String) userMap.get("gender"));
+        user.setRole((String) userMap.get("role"));
+        user.setStatus((String) userMap.get("status"));
 
         existingAdmin.setUser(user);
-        existingAdmin.setDepartment(department);
 
+        // Get the new department by deptId
+        int deptId = Integer.parseInt((String) requestBody.get("deptId"));
+        Department newDepartment = departmentService.getDepartmentById(deptId)
+                .orElseThrow(() -> new RuntimeException("Department not found"));
+
+        existingAdmin.setDepartment(newDepartment);
+        System.out.println(newDepartment.getDeptName());
+        // Save the updated admin
         return adminService.saveAdmin(existingAdmin);
-    } */
+    }
+
 }
