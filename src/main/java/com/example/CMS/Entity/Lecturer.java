@@ -18,7 +18,7 @@ public class Lecturer {
     @Column(name = "lecturerID")
     private int lecturerID;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
@@ -35,11 +35,8 @@ public class Lecturer {
     @Column(name = "highestQualification", length = 100)
     private String highestQualification;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "lecturer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Course> courses;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "lecturer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lecturer", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Class> classes;
 }

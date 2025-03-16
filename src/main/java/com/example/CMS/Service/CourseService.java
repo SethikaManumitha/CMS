@@ -2,6 +2,7 @@ package com.example.CMS.Service;
 
 import com.example.CMS.Entity.Admin;
 import com.example.CMS.Entity.Course;
+import com.example.CMS.Entity.Lecturer;
 import com.example.CMS.Repository.CourseRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,10 @@ public class CourseService {
         return courseRepo.findById(id);
     }
 
+
     public void deleteCourse(int id){
-        courseRepo.deleteById(id);}
+        courseRepo.deleteById(id);
+    }
 
     public List<Course> getAllCourses() {
         return courseRepo.findAll();

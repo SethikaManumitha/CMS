@@ -27,9 +27,6 @@ public class ReservationClass {
     @JoinColumn(name = "resourceID", nullable = false)
     private Resource resource;
 
-    @Column(name = "reservationName", length = 100)
-    private String reservationName;
-
     @Column(name = "reservationDate", length = 100)
     private String reservationDate;
 
@@ -38,9 +35,6 @@ public class ReservationClass {
 
     @Column(name = "endTime", length = 100)
     private String endTime;
-
-    @Column(name = "capacity", length = 100)
-    private Integer capacity;
 
     @Column(name = "status", length = 100)
     private String status;

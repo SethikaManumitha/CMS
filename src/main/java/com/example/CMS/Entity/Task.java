@@ -20,11 +20,14 @@ public class Task {
     @Column(name = "title", nullable = false, length = 255)
     private String title;
 
-    @Column(name = "date", nullable = false)
-    private String date;
+    @Column(name = "due_time", nullable = false)
+    private String due_time;
 
     @Column(name = "due_date", nullable = false)
     private String dueDate;
+
+    @Column(name = "type", nullable = false)
+    private String type;
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
@@ -36,8 +39,8 @@ public class Task {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
-    private Course course;
+    @JoinColumn(name = "class_id", nullable = false)
+    private Class aClass;
 
     @ManyToOne
     @JoinColumn(name = "lecturer_id", nullable = false)

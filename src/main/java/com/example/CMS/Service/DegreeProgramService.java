@@ -4,6 +4,7 @@ import com.example.CMS.DTO.CourseDTO;
 import com.example.CMS.DTO.DegreeProgramDTO;
 import com.example.CMS.Entity.Course;
 import com.example.CMS.Entity.DegreeProgram;
+import com.example.CMS.Entity.Lecturer;
 import com.example.CMS.Repository.CourseRepo;
 import com.example.CMS.Repository.DegreeProgramRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,11 @@ public class DegreeProgramService {
 
         return degreeProgramRepo.save(degreeProgram);
     }
+
+    public List<DegreeProgram> getAllProgrammes() {
+        return degreeProgramRepo.findAll();
+    }
+
     public List<DegreeProgramDTO> getAllDegreeProgramsWithCourses() {
         List<DegreeProgram> programs = degreeProgramRepo.findAll();
 

@@ -1,5 +1,6 @@
 package com.example.CMS.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,11 +19,13 @@ public class Resource {
     @Column(name = "resourceID")
     private int resourceID;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "dept_id", nullable = false)
     private Department department;
 

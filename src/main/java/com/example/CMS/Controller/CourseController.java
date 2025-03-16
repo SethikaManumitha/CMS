@@ -1,7 +1,6 @@
 package com.example.CMS.Controller;
 
-import com.example.CMS.Entity.Course;
-import com.example.CMS.Entity.Lecturer;
+import com.example.CMS.Entity.*;
 import com.example.CMS.Service.CourseService;
 import com.example.CMS.Service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +38,8 @@ public class CourseController {
             throw new IllegalArgumentException("Credits must be greater than 0");
         }
 
-        Lecturer lecturer =  lecturerService.getLecturerById(courseRequest.getLecturer().getLecturerID())
-                .orElseThrow(() -> new RuntimeException("Lecturer not found"));
-
         // Set the fetched lecturer to the course
         Course course = new Course();
-        course.setLecturer(lecturer);
 
         // Set course properties
         course.setCourseName(courseRequest.getCourseName());
@@ -65,4 +60,25 @@ public class CourseController {
         return  courseService.getAllCourses();
     }
 
+    @GetMapping("/{id}")
+    public Course getCourseById(@PathVariable int id) {
+        return courseService.getCourseById(id).orElse(null);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCourse(@PathVariable int id) {
+        courseService.deleteCourse(id);
+    }
+
+    @PutMapping("/{id}")
+    public Course updateCourse(@PathVariable int id,@RequestBody Course courseRequest) {
+        Course existingCourse = courseService.getCourseById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+
+        existingCourse.setCourseName(courseRequest.getCourseName());
+        existingCourse.setCredits(courseRequest.getCredits());
+        existingCourse.setStatus(courseRequest.getStatus());
+        // Save the updated course back to the repository
+        return courseService.saveDetails(existingCourse);
+    }
 }

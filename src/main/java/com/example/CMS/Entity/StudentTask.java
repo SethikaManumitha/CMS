@@ -24,7 +24,7 @@ public class StudentTask {
     @JoinColumn(name = "task_id", nullable = false)
     private Task task;
 
-    @Column(name = "grade", nullable = true)
+    @Column(name = "grade")
     private String grade;
 
     @Column(name = "status", nullable = false)

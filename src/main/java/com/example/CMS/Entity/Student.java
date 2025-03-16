@@ -20,12 +20,12 @@ public class Student {
     @Column(name = "studentID")
     private int studentID;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<StudentDegree> studentDegrees;
-    @OneToMany(mappedBy = "students", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "students", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<StudentCourse> studentCourses;
 
 }

@@ -24,21 +24,21 @@ public class Course {
     @Column(name = "Course_name", length = 200,unique = true)
     private String courseName;
 
-    @ManyToOne
-    @JoinColumn(name = "lecturerID", nullable = false)
-    @JsonIgnoreProperties("courses")
-    private Lecturer lecturer;
-
     @Column(name = "credits")
     private int credits;
 
     @Column(name = "status", length = 20)
     private String status;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("courses")
     private List<DegreeProgram> degreePrograms;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("courses")
     private List<StudentCourse> studentCourse;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("courses")
+    private List<Class> classes;
 }

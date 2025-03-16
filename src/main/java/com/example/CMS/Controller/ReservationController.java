@@ -1,6 +1,7 @@
 package com.example.CMS.Controller;
 
 import com.example.CMS.DTO.AvailabilityRequest;
+import com.example.CMS.DTO.ReservationClassResponse;
 import com.example.CMS.Entity.*;
 import com.example.CMS.Entity.Class;
 import com.example.CMS.Service.ClassService;
@@ -10,6 +11,8 @@ import com.example.CMS.Service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/reservations")
@@ -45,13 +48,12 @@ public class ReservationController {
         }
     }
 
-
     // Reserve a resource for a class
     @PostMapping("/class")
     public ResponseEntity<?> reserveClass(@RequestBody ReservationClass reservationRequest) {
 
         try {
-
+            System.out.println(reservationRequest.getAssignedClass().getClassID());
             Class assignedClass = classService.getClassById(reservationRequest.getAssignedClass().getClassID())
                     .orElseThrow(() -> new RuntimeException("Class not found"));
 
@@ -59,7 +61,7 @@ public class ReservationController {
                     .orElseThrow(() -> new RuntimeException("Resource not found"));
 
             ReservationClass reservation = reservationService.reserveClass(assignedClass, resource, reservationRequest.getReservationDate(),
-                    reservationRequest.getStartTime(), reservationRequest.getEndTime(),reservationRequest.getReservationName(), reservationRequest.getCapacity());
+                    reservationRequest.getStartTime(), reservationRequest.getEndTime());
             return ResponseEntity.ok(reservation);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -81,6 +83,29 @@ public class ReservationController {
                     reservationRequest.getStartTime(), reservationRequest.getEndTime(),reservationRequest.getReservationName(), reservationRequest.getCapacity());
             return ResponseEntity.ok(reservation);
         } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/class")
+    public List<ReservationClassResponse> getAllClassReservation(){
+        return  reservationService.getAllClasses();
+    }
+
+    @PutMapping("/class/{reservationId}/status")
+    public ResponseEntity<?> updateReservationStatus(@PathVariable int reservationId, @RequestBody String newStatus) {
+        try {
+            // Fetch the reservation by ID
+            ReservationClass reservation = reservationService.getReservationById(reservationId)
+                    .orElseThrow(() -> new RuntimeException("Reservation not found"));
+
+            // Update the status
+            reservation.setStatus(newStatus);
+
+            reservationService.saveReservation(reservation);
+
+            return ResponseEntity.ok(reservation);
+        } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

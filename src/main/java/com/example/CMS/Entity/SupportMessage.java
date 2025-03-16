@@ -16,6 +16,9 @@ public class SupportMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "title", columnDefinition = "TEXT", nullable = false)
+    private String title;
+
     @Column(name = "sender_type", nullable = false) // "student", "lecturer", or "admin"
     private String senderType;
 
@@ -25,11 +28,14 @@ public class SupportMessage {
     @Column(name = "receiver_type", nullable = false) // always "admin" for user messages, or "student"/"lecturer" for replies
     private String receiverType;
 
-    @Column(name = "receiver_id", nullable = false)
-    private int receiverId;
-
     @Column(name = "message", columnDefinition = "TEXT", nullable = false)
     private String message;
+
+    @Column(name = "category", columnDefinition = "TEXT", nullable = false)
+    private String category;
+
+    @Column(name = "file_path", columnDefinition = "TEXT", nullable = false)
+    private String filePath;
 
     @Column(name = "timestamp", nullable = false)
     private LocalDateTime timestamp;

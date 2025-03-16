@@ -1,9 +1,9 @@
 package com.example.CMS.Entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "Event")
@@ -23,14 +23,14 @@ public class Event {
     @Column(name = "description", length = 100)
     private String description;
 
-    @Column(name = "date", length = 100)
-    private String date;
+    @Column(name = "date")
+    private LocalDate date;
 
-    @Column(name = "startTime", length = 100)
-    private String startTime;
+    @Column(name = "startTime")
+    private LocalTime startTime;
 
-    @Column(name = "endTime", length = 100)
-    private String endTime;
+    @Column(name = "endTime")
+    private LocalTime endTime;
 
     @Column(name = "eventType", length = 100)
     private String eventType;
@@ -41,12 +41,9 @@ public class Event {
     @Column(name = "MaxCapacity")
     private int maxCapacity;
 
-    @Column(name = "RegisterDeadline", length = 100)
-    private String registerDeadline;
+    @Column(name = "RegisterDeadline")
+    private LocalDate registerDeadline;
 
     @Column(name = "status", length = 100)
     private String status;
-
-
-
 }

@@ -1,8 +1,10 @@
 package com.example.CMS.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -17,29 +19,22 @@ public class Class {
     @Column(name = "classID")
     private int classID;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "courseID", nullable = false)
     private Course course;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "lecturerID", nullable = false)
     private Lecturer lecturer;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "adminID", nullable = true )
-    private Admin admin;
-
-    @Column(name = "day", length = 100)
+    @Column(name = "day", nullable = false)
     private String day;
 
-    @Column(name = "startTime", length = 100)
-    private String startTime;
+    @Column(name = "startTime", nullable = false)
+    private LocalTime startTime;
 
-    @Column(name = "endTime", length = 100)
-    private String endTime;
-
-    @Column(name = "maxStudents")
-    private int maxStudents;
+    @Column(name = "endTime", nullable = false)
+    private LocalTime endTime;
 
     @Column(name = "semester", nullable = false)
     private int semester;
@@ -51,6 +46,6 @@ public class Class {
     private String status;
 
     @OneToMany(mappedBy = "clazz", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ClassAttendance> attendanceList;
-
 }

@@ -16,7 +16,7 @@ public class Admin {
     @Column(name = "admin_id")
     private int adminId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 

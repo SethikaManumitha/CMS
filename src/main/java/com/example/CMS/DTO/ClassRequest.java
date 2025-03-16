@@ -3,15 +3,17 @@ package com.example.CMS.DTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @Getter
 @Setter
 public class ClassRequest {
     private int courseID;
     private int lecturerID;
-    private int adminID;
     private String day;
-    private String startTime;
-    private String endTime;
-    private int maxStudents;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private int semester;
     private String status;
 }

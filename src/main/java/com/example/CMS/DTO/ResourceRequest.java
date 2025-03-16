@@ -1,7 +1,5 @@
 package com.example.CMS.DTO;
 
-import com.example.CMS.Entity.Department;
-import com.example.CMS.Entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +13,4 @@ public class ResourceRequest {
     private String description;
     private int capacity;
     private int status;
-
 }

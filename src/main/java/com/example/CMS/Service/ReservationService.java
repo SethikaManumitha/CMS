@@ -1,5 +1,7 @@
 package com.example.CMS.Service;
 
+import com.example.CMS.DTO.ClassResponse;
+import com.example.CMS.DTO.ReservationClassResponse;
 import com.example.CMS.Entity.*;
 import com.example.CMS.Entity.Class;
 import com.example.CMS.Repository.ReservationClassRepo;
@@ -7,6 +9,10 @@ import com.example.CMS.Repository.ReservationEventRepo;
 import com.example.CMS.Repository.ResourceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
@@ -30,7 +36,7 @@ public class ReservationService {
     }
 
     // Reserve resource for class
-    public ReservationClass reserveClass(Class assignedClass, Resource resource, String date, String startTime, String endTime, String reservationName, Integer capacity) {
+    public ReservationClass reserveClass(Class assignedClass, Resource resource, String date, String startTime, String endTime) {
         if (isResourceAvailable(resource, date, startTime, endTime)) {
             ReservationClass reservation = new ReservationClass();
             reservation.setAssignedClass(assignedClass);
@@ -38,8 +44,6 @@ public class ReservationService {
             reservation.setStartTime(startTime);
             reservation.setEndTime(endTime);
             reservation.setReservationDate(date);
-            reservation.setReservationName(reservationName);
-            reservation.setCapacity(capacity);
             reservation.setStatus("Pending");
 
             // Save the reservation object to the database
@@ -68,6 +72,34 @@ public class ReservationService {
         } else {
             throw new IllegalArgumentException("Resource is already reserved during this time");
         }
+    }
+
+    public List<ReservationClassResponse> getAllClasses(){
+        List<ReservationClass> reservationClasses =  reservationClassRepo.findByStatus("Pending");
+
+        return reservationClasses.stream().map(clazz ->
+                new ReservationClassResponse(
+                        clazz.getReservationID(),
+                        clazz.getAssignedClass().getClassID(),
+                        clazz.getAssignedClass().getCourse().getCourseID(),
+                        clazz.getAssignedClass().getCourse().getCourseName(),
+                        clazz.getAssignedClass().getLecturer().getLecturerID(),
+                        clazz.getAssignedClass().getLecturer().getUser().getFirstName() + " " + clazz.getAssignedClass().getLecturer().getUser().getLastName(),
+                        clazz.getResource().getResourceID(),
+                        clazz.getResource().getName(),
+                        clazz.getReservationDate(),
+                        clazz.getStartTime(),
+                        clazz.getEndTime()
+                )
+        ).collect(Collectors.toList());
+    }
+
+    public Optional<ReservationClass> getReservationById(int reservationId) {
+        return reservationClassRepo.findById(reservationId);
+    }
+
+    public ReservationClass saveReservation(ReservationClass reservation) {
+        return reservationClassRepo.save(reservation);
     }
 
 }
