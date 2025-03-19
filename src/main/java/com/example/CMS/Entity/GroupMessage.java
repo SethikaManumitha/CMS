@@ -18,7 +18,7 @@ public class GroupMessage {
 
     @ManyToOne
     @JoinColumn(name = "sender_id", nullable = false)
-    private Student sender;  // Sender is a student
+    private Student sender;
 
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)

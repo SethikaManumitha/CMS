@@ -5,10 +5,9 @@ import com.example.CMS.Entity.StudentCourse;
 import com.example.CMS.Service.StudentCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/student-courses")
@@ -25,6 +24,15 @@ public class StudentCourseController {
         System.out.println("Status: " + request.getStatus());
         StudentCourse studentCourse = studentCourseService.enrollStudentInCourse(request);
         return ResponseEntity.ok(studentCourse);
+    }
+
+    @GetMapping("/course/{courseId}")
+    public ResponseEntity<List<StudentCourse>> getStudentsForCourse(@PathVariable int courseId) {
+        List<StudentCourse> studentCourses = studentCourseService.getStudentsByCourseId(courseId);
+        if (studentCourses.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(studentCourses);
     }
 
 }

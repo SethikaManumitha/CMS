@@ -8,11 +8,12 @@ import com.example.CMS.Entity.StudentCourse;
 import com.example.CMS.Repository.CourseRepo;
 import com.example.CMS.Repository.StudentCourseRepo;
 import com.example.CMS.Repository.StudentRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class  StudentCourseService {
+public class StudentCourseService {
     @Autowired
     private StudentCourseRepo studentCourseRepository;
 
@@ -22,6 +23,7 @@ public class  StudentCourseService {
     @Autowired
     private CourseRepo courseRepository;
 
+    // Existing method to enroll student in a course
     public StudentCourse enrollStudentInCourse(StudentCourseRequest request) {
         Student student = studentRepository.findById(request.getStudentId())
                 .orElseThrow(() -> new RuntimeException("Student not found"));
@@ -35,5 +37,9 @@ public class  StudentCourseService {
         studentCourse.setMarks(request.getMarks());
 
         return studentCourseRepository.save(studentCourse);
-}
+    }
+
+    public List<StudentCourse> getStudentsByCourseId(int courseId) {
+        return studentCourseRepository.findByCourseCourseID(courseId);
+    }
 }

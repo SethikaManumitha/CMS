@@ -8,6 +8,5 @@ import lombok.Data;
 public class CourseDTO {
     private int courseID;
     private String courseName;
-    private int credits;
     private String status;
 }

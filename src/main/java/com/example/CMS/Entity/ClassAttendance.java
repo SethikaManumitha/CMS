@@ -23,9 +23,6 @@ public class ClassAttendance {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "time")
-    private String time;
-
-    @Column(name = "date")
-    private String date;
+    @Column(name = "status")
+    private String status;
 }

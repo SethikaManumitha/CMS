@@ -2,6 +2,7 @@ package com.example.CMS.Service;
 
 import com.example.CMS.Entity.Admin;
 import com.example.CMS.Entity.Course;
+import com.example.CMS.Entity.DegreeProgram;
 import com.example.CMS.Entity.Lecturer;
 import com.example.CMS.Repository.CourseRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,15 @@ public class CourseService {
 
     public List<Course> getAllCourses() {
         return courseRepo.findAll();
+    }
+
+    // Method to get the degree programs associated with a specific course
+    public List<DegreeProgram> getDegreeProgramsForCourse(int courseId) {
+        // Find the course by its ID
+        Course course = courseRepo.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+
+        return course.getDegreePrograms();
     }
 
 }

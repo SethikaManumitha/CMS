@@ -1,5 +1,6 @@
 package com.example.CMS.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,6 +25,7 @@ public class StudentDegree {
     private Student student;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "programID", nullable = false)
     private DegreeProgram degreeProgram;
 

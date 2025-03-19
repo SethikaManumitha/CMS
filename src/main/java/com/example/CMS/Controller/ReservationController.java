@@ -109,5 +109,16 @@ public class ReservationController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/class/date/{reservationDate}")
+    public ResponseEntity<List<ReservationClassResponse>> getReservationsByDate(@PathVariable String reservationDate) {
+        try {
+            // Fetch reservations for the given date
+            List<ReservationClassResponse> reservations = reservationService.getReservationsByDate(reservationDate);
+            return ResponseEntity.ok(reservations);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }
 

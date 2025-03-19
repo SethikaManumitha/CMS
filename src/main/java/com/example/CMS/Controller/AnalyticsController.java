@@ -1,12 +1,9 @@
 package com.example.CMS.Controller;
 
-import com.example.CMS.DTO.DegreeProgramDTO;
-import com.example.CMS.DTO.DepartmentLecturerDTO;
-import com.example.CMS.DTO.DepartmentResourceDTO;
+import com.example.CMS.DTO.*;
 import com.example.CMS.Entity.Lecturer;
 import com.example.CMS.Service.DegreeProgramService;
 import com.example.CMS.Service.DepartmentService;
-import com.example.CMS.DTO.DegreeProgramStudentCountDTO;
 import com.example.CMS.Entity.Department;
 import com.example.CMS.Service.LecturerService;
 import com.example.CMS.Service.StudentAnalyticsService;
@@ -33,6 +30,14 @@ public class AnalyticsController {
 
     @Autowired
     private DegreeProgramService degreeProgramService;
+
+
+
+
+    @GetMapping("/summary")
+    public ResponseEntity<AnalyticsDTO> getAnalyticsSummary() {
+        return ResponseEntity.ok(studentAnalyticsService.getAnalytics());
+    }
 
     @GetMapping("/student-count-by-program")
     public ResponseEntity<List<DegreeProgramStudentCountDTO>> getStudentCountsByProgram() {

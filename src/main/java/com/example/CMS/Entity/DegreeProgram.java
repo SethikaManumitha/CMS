@@ -1,5 +1,6 @@
 package com.example.CMS.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -58,10 +59,9 @@ public class DegreeProgram {
             joinColumns = @JoinColumn(name = "ProgramID"),
             inverseJoinColumns = @JoinColumn(name = "CourseID")
     )
-    @JsonIgnoreProperties("degreePrograms") // Json ignore to avoid recurssion
+    @JsonIgnore
     private List<Course> courses;
 
     @OneToMany(mappedBy = "degreeProgram", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<StudentDegree> studentDegrees;
-
 }

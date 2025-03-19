@@ -10,6 +10,9 @@ import com.example.CMS.Repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class StudentDegreeService {
     @Autowired
@@ -40,5 +43,21 @@ public class StudentDegreeService {
 
         // Save to database
         return studentDegreeRepository.save(studentDegree);
+    }
+
+    public List<Student> getStudentsEnrolledInDegree(int programId) {
+        // Find the degree program
+        DegreeProgram degreeProgram = degreeProgramRepository.findById(programId)
+                .orElseThrow(() -> new RuntimeException("Degree Program not found"));
+
+        // Retrieve all StudentDegree entries related to this degree program
+        List<StudentDegree> studentDegrees = studentDegreeRepository.findByDegreeProgram(degreeProgram);
+
+        // Extract students from the StudentDegree entries
+        List<Student> students = studentDegrees.stream()
+                .map(StudentDegree::getStudent)
+                .collect(Collectors.toList());
+
+        return students;
     }
 }

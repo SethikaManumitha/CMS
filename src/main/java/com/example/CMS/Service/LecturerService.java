@@ -3,7 +3,9 @@ package com.example.CMS.Service;
 import com.example.CMS.DTO.DepartmentLecturerDTO;
 import com.example.CMS.DTO.LecturerDTO;
 import com.example.CMS.Entity.Admin;
+import com.example.CMS.Entity.Class;
 import com.example.CMS.Entity.Lecturer;
+import com.example.CMS.Repository.ClassRepo;
 import com.example.CMS.Repository.LecturerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ import java.util.stream.Collectors;
 public class LecturerService {
     @Autowired
     private LecturerRepo lecturerRepository;
+
+    @Autowired
+    private ClassRepo classRepository;
 
     public Lecturer saveLecturer(Lecturer lecturer) {
         return lecturerRepository.save(lecturer);
@@ -33,6 +38,9 @@ public class LecturerService {
         lecturerRepository.deleteById(id);
     }
 
+    public Optional<Lecturer> getLecturerByUserId(int userId) {
+        return lecturerRepository.findByUserId(userId);
+    }
 
     public Map<String, List<Lecturer>> getLecturersGroupedByDepartment() {
         List<Lecturer> lecturers = lecturerRepository.findAll();
@@ -43,4 +51,12 @@ public class LecturerService {
                 .collect(Collectors.groupingBy(l -> l.getDepartment().getDeptName()));
     }
 
+    public List<Class> getClassesByLecturerId(int lecturerId) {
+        Optional<Lecturer> lecturerOptional = lecturerRepository.findById(lecturerId);
+        if (lecturerOptional.isPresent()) {
+            Lecturer lecturer = lecturerOptional.get();
+            return lecturer.getClasses();
+        }
+        throw new RuntimeException("Lecturer not found with ID: " + lecturerId);
+    }
 }

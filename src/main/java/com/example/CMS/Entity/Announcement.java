@@ -27,7 +27,9 @@ public class Announcement {
     @Column(name = "message", columnDefinition = "TEXT")
     private String message;
 
-    // Many-to-One relationship with Admin
+    @Column(name = "type", columnDefinition = "TEXT")
+    private String type;
+
     @ManyToOne
     @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;

@@ -1,6 +1,7 @@
 package com.example.CMS.Repository;
 
 import com.example.CMS.DTO.DegreeProgramStudentCountDTO;
+import com.example.CMS.Entity.DegreeProgram;
 import com.example.CMS.Entity.StudentDegree;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,7 @@ public interface StudentDegreeRepo extends JpaRepository<StudentDegree, Integer>
             "JOIN sd.degreeProgram d " +
             "GROUP BY d.program_name")
     List<DegreeProgramStudentCountDTO> getStudentCountsByProgram();
+
+    List<StudentDegree> findByDegreeProgram(DegreeProgram degreeProgram);
+
 }

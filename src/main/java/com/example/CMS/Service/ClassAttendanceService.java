@@ -22,7 +22,7 @@ public class ClassAttendanceService {
     @Autowired
     private UserRepo userRepo;
 
-    public ClassAttendance saveAttendance(ClassAttendanceDTO dto) {
+    public Boolean saveAttendance(ClassAttendanceDTO dto) {
         Class clazz = classRepo.findById(dto.getClassId())
                 .orElseThrow(() -> new RuntimeException("Class not found"));
 
@@ -32,9 +32,13 @@ public class ClassAttendanceService {
         ClassAttendance attendance = new ClassAttendance();
         attendance.setClazz(clazz);
         attendance.setUser(user);
-        attendance.setDate(dto.getDate());
-        attendance.setTime(dto.getTime());
-
-        return attendanceRepo.save(attendance);
+        attendance.setStatus(dto.getStatus());
+        try {
+            attendanceRepo.save(attendance);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

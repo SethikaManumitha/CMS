@@ -25,6 +25,7 @@ public class AnnouncementService {
         announcement.setDate(dto.getDate());
         announcement.setClosingDate(dto.getClosingDate());
         announcement.setMessage(dto.getMessage());
+        announcement.setType((dto.getType()));
         announcement.setAdmin(admin);
 
         return announcementRepository.save(announcement);

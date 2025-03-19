@@ -1,5 +1,6 @@
 package com.example.CMS.Controller;
 
+import com.example.CMS.DTO.DegreeProgramDTO;
 import com.example.CMS.Entity.DegreeProgram;
 import com.example.CMS.Entity.Lecturer;
 import com.example.CMS.Service.DegreeProgramService;
@@ -36,7 +37,7 @@ public class DegreeProgramController {
     }
 
     @GetMapping
-    public List<DegreeProgram> getAllProgrammes() {
+    public List<DegreeProgramDTO> getAllProgrammes() {
         return degreeProgramService.getAllProgrammes();
     }
 

@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class TimeTableDTO {
+public class ClassTimeTableDTO {
     private String day;
     private String startTime;
     private String endTime;

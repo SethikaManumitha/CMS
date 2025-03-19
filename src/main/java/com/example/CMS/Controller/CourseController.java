@@ -4,6 +4,7 @@ import com.example.CMS.Entity.*;
 import com.example.CMS.Service.CourseService;
 import com.example.CMS.Service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,6 +59,12 @@ public class CourseController {
     @GetMapping
     public List<Course> getAllCourses(){
         return  courseService.getAllCourses();
+    }
+
+    @GetMapping("/{courseId}/degree-programs")
+    public ResponseEntity<List<DegreeProgram>> getDegreeProgramsForCourse(@PathVariable int courseId) {
+        List<DegreeProgram> degreePrograms = courseService.getDegreeProgramsForCourse(courseId);
+        return ResponseEntity.ok(degreePrograms);
     }
 
     @GetMapping("/{id}")

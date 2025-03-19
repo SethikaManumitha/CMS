@@ -14,7 +14,8 @@ public class ClassAttendanceController {
     private ClassAttendanceService attendanceService;
 
     @PostMapping("/mark")
-    public ClassAttendance markAttendance(@RequestBody ClassAttendanceDTO request) {
+    public Boolean markAttendance(@RequestBody ClassAttendanceDTO request) {
         return attendanceService.saveAttendance(request);
     }
+
 }

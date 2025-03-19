@@ -21,4 +21,6 @@ public interface ReservationClassRepo extends JpaRepository<ReservationClass, In
                                             @Param("newEnd") String newEnd);
 
     List<ReservationClass> findByStatus(String status);
+
+    List<ReservationClass> findByReservationDate(String reservationDate);
 }

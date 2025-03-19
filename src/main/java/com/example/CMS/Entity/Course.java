@@ -1,5 +1,6 @@
 package com.example.CMS.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,14 +32,14 @@ public class Course {
     private String status;
 
     @ManyToMany(mappedBy = "courses", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties("courses")
+    @JsonIgnore
     private List<DegreeProgram> degreePrograms;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("courses")
+    @JsonIgnore
     private List<StudentCourse> studentCourse;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("courses")
+    @JsonIgnore
     private List<Class> classes;
 }

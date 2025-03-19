@@ -12,5 +12,5 @@ public class GroupDTO {
 
     private String groupName;
     private String description;
-    private List<Integer> memberIds; // List of user IDs who will be added to the group
+    private List<Integer> memberIds;
 }

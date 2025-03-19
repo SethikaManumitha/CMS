@@ -29,3 +29,4 @@ public class EventAttendance {
     @Column(name = "time", nullable = false)
     private String time;
 }
+

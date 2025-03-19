@@ -27,7 +27,7 @@ public class AnnouncementController {
         return ResponseEntity.ok(announcementService.getAllAnnouncements());
     }
 
-    @GetMapping("/latest")
+        @GetMapping("/latest")
     public ResponseEntity<List<Announcement>> getLatest10() {
         return ResponseEntity.ok(announcementService.getLatest10Announcements());
     }

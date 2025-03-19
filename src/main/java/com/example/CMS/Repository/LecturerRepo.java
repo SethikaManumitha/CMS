@@ -1,6 +1,7 @@
 package com.example.CMS.Repository;
 
 import com.example.CMS.Entity.Lecturer;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -36,4 +37,6 @@ public interface LecturerRepo extends JpaRepository<Lecturer, Integer> {
             "LEFT JOIN department d ON d.dept_id = l.dept_id " +
             "WHERE l.lecturerID IS NOT NULL", nativeQuery = true)
     List<Object[]> findLecturersAndDepartments();
+
+    Optional<Lecturer> findByUserId(int userId);
 }

@@ -54,6 +54,27 @@ public class ReservationService {
     }
 
 
+    public List<ReservationClassResponse> getReservationsByDate(String reservationDate) {
+        List<ReservationClass> reservationClasses = reservationClassRepo.findByReservationDate(reservationDate);
+
+        return reservationClasses.stream().map(reservation -> {
+            // Return the relevant reservation class details along with resource room name
+            return new ReservationClassResponse(
+                    reservation.getReservationID(),
+                    reservation.getAssignedClass().getClassID(),
+                    reservation.getAssignedClass().getCourse().getCourseID(),
+                    reservation.getAssignedClass().getCourse().getCourseName(),
+                    reservation.getAssignedClass().getLecturer().getLecturerID(),
+                    reservation.getAssignedClass().getLecturer().getUser().getFirstName() + " " + reservation.getAssignedClass().getLecturer().getUser().getLastName(),
+                    reservation.getResource().getResourceID(),
+                    reservation.getResource().getName(),
+                    reservation.getReservationDate(),
+                    reservation.getStartTime(),
+                    reservation.getEndTime()
+            );
+        }).collect(Collectors.toList());
+    }
+
     // Reserve resource for event
     public ReservationEvent reserveEvent(Event assignedEvent, Resource resource, String date, String startTime, String endTime, String reservationName, Integer capacity) {
         if (isResourceAvailable(resource, date, startTime, endTime)) {

@@ -91,4 +91,28 @@ public class TaskService {
     public List<Task> getTasksByCourseId(int courseId) {
         return taskRepository.findTasksByCourseId(courseId);
     }
+
+
+    public List<TaskResponseDTO> getAllTasks() {
+        List<Task> tasks = taskRepository.findAll();
+        List<TaskResponseDTO> taskResponseDTOs = new ArrayList<>();
+
+        for (Task task : tasks) {
+            TaskResponseDTO taskResponseDTO = new TaskResponseDTO(
+                    task.getTitle(),
+                    task.getDue_time(),
+                    task.getDueDate(),
+                    task.getType(),
+                    task.getDescription(),
+                    task.getDocUrl(),
+                    task.getStatus(),
+                    task.getAClass().getClassID(),
+                    task.getLecturer().getLecturerID()
+            );
+            taskResponseDTOs.add(taskResponseDTO);
+        }
+
+        return taskResponseDTOs;
+    }
+
 }

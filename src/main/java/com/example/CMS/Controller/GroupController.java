@@ -1,9 +1,10 @@
 package com.example.CMS.Controller;
 
+import com.example.CMS.DTO.GroupDTO;
 import com.example.CMS.Entity.Group;
+import com.example.CMS.Entity.Student;
 import com.example.CMS.Service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,9 @@ public class GroupController {
     private GroupService groupService;
 
     @PostMapping("/create")
-    public ResponseEntity<Group> createGroup(@RequestBody Group group) {
-        Group createdGroup = groupService.createGroup(group);
-        return new ResponseEntity<>(createdGroup, HttpStatus.CREATED);
+    public ResponseEntity<Group> createGroup(@RequestBody GroupDTO groupDTO) {
+        Group createdGroup = groupService.createGroup(groupDTO);
+        return ResponseEntity.status(201).body(createdGroup);
     }
 
     @GetMapping("/student/{studentID}")
@@ -29,5 +30,24 @@ public class GroupController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(groups);
+    }
+
+    @GetMapping("/group/{groupID}")
+    public ResponseEntity<List<Group>> getStudentByGroupId(@PathVariable int groupId) {
+        List<Group> groups = groupService.getGroupsByStudentId(groupId);
+        if (groups.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(groups);
+    }
+
+    // New endpoint to get all students in a group
+    @GetMapping("/group/{groupId}/students")
+    public ResponseEntity<List<Student>> getStudentsInGroup(@PathVariable int groupId) {
+        List<Student> students = groupService.getStudentsInGroup(groupId);
+        if (students == null || students.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(students);
     }
 }

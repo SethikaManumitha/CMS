@@ -1,17 +1,17 @@
 package com.example.CMS.Controller;
 
-import com.example.CMS.Entity.Admin;
+import com.example.CMS.Entity.Class;
 import com.example.CMS.Entity.Lecturer;
 import com.example.CMS.Entity.Department;
 import com.example.CMS.Entity.User;
 import com.example.CMS.Service.LecturerService;
 import com.example.CMS.Service.DepartmentService;
-import com.example.CMS.Service.LecturerService;
 import com.example.CMS.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/lecturers")
@@ -66,6 +66,15 @@ public class LecturerController {
     @DeleteMapping("/{id}")
     public void deleteLecturer(@PathVariable int id) {
         lecturerService.deleteLecturer(id);
+    }
+
+
+    @GetMapping("/{userId}/classes")
+    public List<Class> getClassesByLecturerId(@PathVariable int userId) {
+        Optional<Lecturer> lecturerOptional = lecturerService.getLecturerByUserId(userId);
+        Lecturer lecturer = lecturerOptional.orElseThrow(() -> new RuntimeException("Lecturer not found for User ID: " + userId));
+        int lecturerId = lecturer.getLecturerID();
+        return lecturerService.getClassesByLecturerId(lecturerId);
     }
 
 

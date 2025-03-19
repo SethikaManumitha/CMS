@@ -36,6 +36,16 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
+    @GetMapping
+    public ResponseEntity<List<TaskResponseDTO>> getAllTasks() {
+        List<TaskResponseDTO> tasks = taskService.getAllTasks();
+
+        if (tasks.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(tasks);
+    }
+
     @GetMapping("/course/{courseId}")
     public ResponseEntity<List<TaskResponseDTO>> getTasksByCourseId(@PathVariable int courseId) {
         List<TaskResponseDTO> tasks = taskService.getTasksByCourseId(courseId).stream()

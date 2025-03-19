@@ -47,9 +47,28 @@ public class DegreeProgramService {
         return degreeProgramRepo.save(degreeProgram);
     }
 
-    public List<DegreeProgram> getAllProgrammes() {
-        return degreeProgramRepo.findAll();
+    public List<DegreeProgramDTO> getAllProgrammes() {
+        List<DegreeProgram> degreePrograms = degreeProgramRepo.findAll();
+
+        // Mapping the DegreeProgram entities to DegreeProgramDTO
+        return degreePrograms.stream()
+                .map(degreeProgram -> new DegreeProgramDTO(
+                        degreeProgram.getProgramID(),
+                        degreeProgram.getProgram_name(),
+                        degreeProgram.getDescription(),
+                        degreeProgram.getLevel(),
+                        degreeProgram.getDegree_type(),
+                        degreeProgram.getDuration(),
+                        degreeProgram.getEntry_requirement(),
+                        degreeProgram.getMax_students(),
+                        degreeProgram.getStatus(),
+                        degreeProgram.getCourses().stream()
+                                .map(course -> new CourseDTO(course.getCourseID(), course.getCourseName(), course.getStatus())) // Mapping Course to CourseDTO
+                                .collect(Collectors.toList())
+                ))
+                .collect(Collectors.toList());
     }
+
 
     public List<DegreeProgramDTO> getAllDegreeProgramsWithCourses() {
         List<DegreeProgram> programs = degreeProgramRepo.findAll();
@@ -67,7 +86,6 @@ public class DegreeProgramService {
                 program.getCourses().stream().map(course -> new CourseDTO(
                         course.getCourseID(),
                         course.getCourseName(),
-                        course.getCredits(),
                         course.getStatus()
                 )).collect(Collectors.toList())
         )).collect(Collectors.toList());
