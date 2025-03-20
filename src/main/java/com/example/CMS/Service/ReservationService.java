@@ -2,6 +2,7 @@ package com.example.CMS.Service;
 
 import com.example.CMS.DTO.ClassResponse;
 import com.example.CMS.DTO.ReservationClassResponse;
+import com.example.CMS.DTO.ReservationEventResponse;
 import com.example.CMS.Entity.*;
 import com.example.CMS.Entity.Class;
 import com.example.CMS.Repository.ReservationClassRepo;
@@ -111,6 +112,23 @@ public class ReservationService {
                         clazz.getReservationDate(),
                         clazz.getStartTime(),
                         clazz.getEndTime()
+                )
+        ).collect(Collectors.toList());
+    }
+
+    public List<ReservationEventResponse> getAllEvents(){
+        List<ReservationEvent> reservationEvents =  reservationEventRepo.findAll();
+
+        return reservationEvents.stream().map(event ->
+                new ReservationEventResponse(
+                        event.getReservationID(),
+                        event.getEvent().getEventID(),
+                        event.getEvent().getName(),
+                        event.getResource().getResourceID(),
+                        event.getResource().getName(),
+                        event.getReservationDate(),
+                        event.getStartTime(),
+                        event.getEndTime()
                 )
         ).collect(Collectors.toList());
     }

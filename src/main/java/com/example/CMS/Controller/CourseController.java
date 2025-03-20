@@ -56,10 +56,7 @@ public class CourseController {
         return courseService.saveDetails(course);
     }
 
-    @GetMapping
-    public List<Course> getAllCourses(){
-        return  courseService.getAllCourses();
-    }
+
 
     @GetMapping("/{courseId}/degree-programs")
     public ResponseEntity<List<DegreeProgram>> getDegreeProgramsForCourse(@PathVariable int courseId) {
@@ -70,6 +67,11 @@ public class CourseController {
     @GetMapping("/{id}")
     public Course getCourseById(@PathVariable int id) {
         return courseService.getCourseById(id).orElse(null);
+    }
+
+    @GetMapping
+    public List<Course> getAllCourses(){
+        return  courseService.getAllCourses();
     }
 
     @DeleteMapping("/{id}")

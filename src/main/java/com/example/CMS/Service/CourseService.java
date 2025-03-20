@@ -28,9 +28,7 @@ public class CourseService {
     public Course saveDetails(Course course){
         return courseRepo.save(course);
     }
-    public Optional<Course> getCourseById(int id) {
-        return courseRepo.findById(id);
-    }
+
 
 
     public void deleteCourse(int id){
@@ -39,6 +37,9 @@ public class CourseService {
 
     public List<Course> getAllCourses() {
         return courseRepo.findAll();
+    }
+    public Optional<Course> getCourseById(int id) {
+        return courseRepo.findById(id);
     }
 
     // Method to get the degree programs associated with a specific course

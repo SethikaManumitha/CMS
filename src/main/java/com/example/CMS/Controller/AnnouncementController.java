@@ -23,12 +23,12 @@ public class AnnouncementController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Announcement>> getAll() {
+    public ResponseEntity<List<Announcement>> getAllAnnouncement() {
         return ResponseEntity.ok(announcementService.getAllAnnouncements());
     }
 
-        @GetMapping("/latest")
-    public ResponseEntity<List<Announcement>> getLatest10() {
+    @GetMapping("/latest")
+    public ResponseEntity<List<Announcement>> getLatest10Announcement() {
         return ResponseEntity.ok(announcementService.getLatest10Announcements());
     }
 }

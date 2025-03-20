@@ -2,6 +2,7 @@ package com.example.CMS.Controller;
 
 import com.example.CMS.DTO.AvailabilityRequest;
 import com.example.CMS.DTO.ReservationClassResponse;
+import com.example.CMS.DTO.ReservationEventResponse;
 import com.example.CMS.Entity.*;
 import com.example.CMS.Entity.Class;
 import com.example.CMS.Service.ClassService;
@@ -90,6 +91,11 @@ public class ReservationController {
     @GetMapping("/class")
     public List<ReservationClassResponse> getAllClassReservation(){
         return  reservationService.getAllClasses();
+    }
+
+    @GetMapping("/event")
+    public List<ReservationEventResponse> getAllEventReservation(){
+        return  reservationService.getAllEvents();
     }
 
     @PutMapping("/class/{reservationId}/status")

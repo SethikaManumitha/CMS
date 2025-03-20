@@ -2,7 +2,6 @@ package com.example.CMS.Controller;
 
 import com.example.CMS.DTO.DegreeProgramDTO;
 import com.example.CMS.Entity.DegreeProgram;
-import com.example.CMS.Entity.Lecturer;
 import com.example.CMS.Service.DegreeProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +31,7 @@ public class DegreeProgramController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDepartment(@PathVariable int id) {
+    public void deleteProgram(@PathVariable int id) {
         degreeProgramService.deleteDegreeProgram(id);
     }
 
