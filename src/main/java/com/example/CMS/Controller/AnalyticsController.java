@@ -2,11 +2,9 @@ package com.example.CMS.Controller;
 
 import com.example.CMS.DTO.*;
 import com.example.CMS.Entity.Lecturer;
-import com.example.CMS.Service.DegreeProgramService;
-import com.example.CMS.Service.DepartmentService;
+import com.example.CMS.Entity.Resource;
+import com.example.CMS.Service.*;
 import com.example.CMS.Entity.Department;
-import com.example.CMS.Service.LecturerService;
-import com.example.CMS.Service.StudentAnalyticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +29,15 @@ public class AnalyticsController {
     @Autowired
     private DegreeProgramService degreeProgramService;
 
+    @Autowired
+    private ResourceService resourceService;
 
 
+    @GetMapping("/capacity-count")
+    public ResponseEntity<Map<String, Integer>> getResourcesByCapacityCount() {
+        Map<String, Integer> capacityCount = resourceService.getResourcesByCapacityCount();
+        return ResponseEntity.ok(capacityCount);
+    }
 
     @GetMapping("/summary")
     public ResponseEntity<AnalyticsDTO> getAnalyticsSummary() {
